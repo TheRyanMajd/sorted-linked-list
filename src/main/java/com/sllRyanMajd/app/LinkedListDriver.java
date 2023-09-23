@@ -35,5 +35,4 @@ public class LinkedListDriver {
         }
     } // main
 
-    //Bruh
 } // LinkedListDriver
