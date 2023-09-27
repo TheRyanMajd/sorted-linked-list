@@ -46,4 +46,12 @@ public class NodeType {
         this.next = null;
     }
 
+    /**
+     * @Override
+     */
+    @Override
+    public String toString() {
+        return (this.info + " next-> " + this.next);
+    }
+
 } // NodeType

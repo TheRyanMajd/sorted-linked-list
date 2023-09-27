@@ -45,7 +45,10 @@ public class ItemType {
         return this.value;
     } // getValue
 
-
+    @Override
+    public String toString() {
+        return (this.value + "");
+    } // toString
 
 
 } // ItemType

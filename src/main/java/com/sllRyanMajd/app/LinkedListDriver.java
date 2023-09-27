@@ -2,7 +2,7 @@ package com.sllRyanMajd.app;
 
 import java.util.Scanner;
 import java.io.*;
-
+import java.util.Arrays;
 /**
  * Hello world!
  *
@@ -10,11 +10,16 @@ import java.io.*;
 
 public class LinkedListDriver {
     public static void main(String[] args) throws FileNotFoundException {
+
+        //Input
         File input = new File(args[0]);
         Scanner scan = new Scanner(input);
-        //**** ARGUMENT MUST PASS THROUGH A LINKEDLIST METHOD and be initialized correctly!
-        System.out.println("Input from " + args[0] + " loaded correctly!"); //TODO: RM WNN
-        System.out.println(scan.nextLine());
+        int[] list1 = inputParser(scan.nextLine());
+
+
+        SortedLinkedList LinkedList1 = new SortedLinkedList(list1);
+        System.out.println("List ready!");
+
         scan = new Scanner(System.in);
         System.out.println("Commands:\n(i) - Insert value\n(d) - Delete value\n(s) - Search value"
         + "\n(n) - Print next iterator value (r) - Reset iterator\n(a) - Delete alternate nodes"+
@@ -34,5 +39,23 @@ public class LinkedListDriver {
             System.out.println("Invalid command, try again!");
         }
     } // main
+
+    /**
+     * Takes list of numbers and initializes and sets a sortedLinkedList Object.
+     * @param list String of nextLine() from file
+     * @return array that is sorted
+     */
+    private static int[] inputParser(String list) {
+        String[] stringArray = list.split(",");
+        // Create an int array to store the converted values
+        int[] intArray = new int[stringArray.length];
+        // Iterate over the string array and convert each element to an int
+        for (int i = 0; i < stringArray.length; i++) {
+            intArray[i] = Integer.parseInt(stringArray[i]);
+        }
+        Arrays.sort(intArray);
+        return intArray;
+    } // input Parser
+
 
 } // LinkedListDriver
