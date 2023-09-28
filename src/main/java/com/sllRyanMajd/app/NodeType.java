@@ -37,6 +37,14 @@ public class NodeType {
     protected void addNext(NodeType nextNode) {
         this.next = nextNode;
     }
+/*
+    public ItemType getItem() {
+        return this.info;
+    }
+*/
+    public NodeType getNext() {
+        return this.next;
+    }
 
     /**
      * Temp method, unknown if needed atp.
@@ -51,7 +59,7 @@ public class NodeType {
      */
     @Override
     public String toString() {
-        return (this.info + " next-> " + this.next);
+        return ("[" + this.info + "]" + " next-> " + this.getNext());
     }
 
 } // NodeType
