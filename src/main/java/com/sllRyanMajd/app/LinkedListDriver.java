@@ -36,9 +36,6 @@ public class LinkedListDriver {
             String cmd = scan.nextLine().toLowerCase();
             switch (cmd) {
 
-            case "test":
-                LinkedList1.test();
-                break;
             case "i":
                 System.out.print("Enter a number to insert: ");
                 int newNum = scan.nextInt();
@@ -87,15 +84,17 @@ public class LinkedListDriver {
                 System.out.print("Iterator is reset");
                 break;
             case "a":
+                System.out.println("Original list: " + LinkedList1.toString());
                 LinkedList1.delAlternateNodes();
+                System.out.print("New list: " + LinkedList1.toString());
                 break;
             case "m":
                 int[] temp = multiList();
-                LinkedList2 = new SortedLinkedList(temp);
-                LinkedList1.mergeList();
+                LinkedList1.mergeList(temp);
                 break;
             case "t":
-                LinkedList2 = new SortedLinkedList(multiList());
+                int[] tempt = multiList();
+                LinkedList1.intersection(tempt);
                 break;
             case "l":
                 System.out.print("The length of the list is " + LinkedList1.getLength());
@@ -116,17 +115,16 @@ public class LinkedListDriver {
      */
     protected static int[] multiList() {
         int listLength;
-        String list;
         Scanner scan = new Scanner(System.in);
         System.out.print("Enter the length of the new list: ");
         listLength = scan.nextInt();
         System.out.print("Enter the numbers: ");
-        list = scan.nextLine();
-        int[] list2 = inputParser(list);
-        return (list2);
+        int[] list = new int[listLength];
+        for (int i = 0; i < listLength; i++) {
+            list[i] = scan.nextInt();
+        }
+        return list;
     }
-
-//TODO: FIX THIS SHIT :: NOT WORKING RIGHT PLUS ANNOYING
 
 
 
@@ -140,6 +138,39 @@ public class LinkedListDriver {
     private static int[] inputParser(String list) {
         Scanner scan = new Scanner(System.in);
         String[] stringArray = list.split(",");
+        // Create an int array to store the converted values
+        int[] intArray = new int[stringArray.length];
+        // Iterate over the string array and convert each element to an int
+        for (int i = 0; i < stringArray.length; i++) {
+            intArray[i] = Integer.parseInt(stringArray[i]);
+        }
+        Arrays.sort(intArray);
+
+        // Count the number of unique integers
+        int uniqueCount = 1;
+        for (int i = 1; i < intArray.length; i++) {
+            if (intArray[i] != intArray[i - 1]) {
+                uniqueCount++;
+            }
+        }
+        // Create a new array to store the unique integers
+        int[] uniqueIntArray = new int[uniqueCount];
+        // Copy unique integers to the new array
+        uniqueIntArray[0] = intArray[0];
+        int uniqueIndex = 1;
+        for (int i = 1; i < intArray.length; i++) {
+            if (intArray[i] != intArray[i - 1]) {
+                uniqueIntArray[uniqueIndex] = intArray[i];
+                uniqueIndex++;
+            }
+        }
+        return uniqueIntArray;
+    } // input Parser
+
+
+    private static int[] inputParser(String list, boolean isSecond) {
+        Scanner scan = new Scanner(System.in);
+        String[] stringArray = list.split(" ");
         // Create an int array to store the converted values
         int[] intArray = new int[stringArray.length];
         // Iterate over the string array and convert each element to an int
