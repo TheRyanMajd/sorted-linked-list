@@ -12,7 +12,7 @@ public class LinkedListDriver {
         Scanner scan = new Scanner(input);
         int[] list1 = inputParser(scan.nextLine());
         boolean quit = false;
-
+        boolean badPrevAns = false;
         SortedLinkedList LinkedList1 = new SortedLinkedList(list1);
         SortedLinkedList LinkedList2;
 
@@ -32,11 +32,14 @@ public class LinkedListDriver {
 
 
         while (!quit) {
-            System.out.print("\nEnter a Command: ");
+            if (!badPrevAns) {
+                System.out.print("\nEnter a Command: ");
+            }
             String cmd = scan.nextLine().toLowerCase();
-            switch (cmd) {
 
+            switch (cmd) {
             case "i":
+                badPrevAns = false;
                 System.out.print("Enter a number to insert: ");
                 int newNum = scan.nextInt();
                 LinkedList1.insertItem(new ItemType(newNum));
@@ -47,15 +50,18 @@ public class LinkedListDriver {
                 System.out.println("Exiting the program...");
                 break;
             case "p":
+                badPrevAns = false;
                 System.out.print("The list is: " + LinkedList1.toString());
                 break;
             case "d":
+                badPrevAns = false;
                 System.out.print("Enter a number to delete: ");
                 newNum = scan.nextInt();
                 LinkedList1.deleteItem(new ItemType(newNum));
                 scan.nextLine();
                 break;
             case "s":
+                badPrevAns = false;
                 System.out.print("Enter a number to search: ");
                 newNum = scan.nextInt();
                 int index = LinkedList1.searchItem(new ItemType(newNum));
@@ -63,7 +69,6 @@ public class LinkedListDriver {
                     System.out.println("Original list: " + LinkedList1.toString());
                     System.out.print("The list is empty");
                     scan.nextLine();
-                    break;
                 } else {
                     System.out.println("Original list: " + LinkedList1.toString());
                     if (index != -1) {
@@ -74,38 +79,44 @@ public class LinkedListDriver {
                         System.out.print("Item is not present in the list");
                     }
                     scan.nextLine();
-                    break;
                 }
+                break;
             case "n":
+                badPrevAns = false;
                 System.out.print(LinkedList1.getNextItem());
                 break;
             case "r":
+                badPrevAns = false;
                 LinkedList1.resetIterator();
                 System.out.print("Iterator is reset");
                 break;
             case "a":
+                badPrevAns = false;
                 System.out.println("Original list: " + LinkedList1.toString());
                 LinkedList1.delAlternateNodes();
                 System.out.print("New list: " + LinkedList1.toString());
                 break;
             case "m":
+                badPrevAns = false;
                 int[] temp = multiList();
                 LinkedList1.mergeList(temp);
                 break;
             case "t":
+                badPrevAns = false;
                 int[] tempt = multiList();
                 LinkedList1.intersection(tempt);
                 break;
             case "l":
+                badPrevAns = false;
                 System.out.print("The length of the list is " + LinkedList1.getLength());
                 break;
             default:
+                badPrevAns = true;
                 System.out.print("Invalid command, try again: ");
-                cmd = scan.nextLine().toLowerCase();
                 break;
             } // switch statement
-
         } // while loop
+
 
     } // main
 

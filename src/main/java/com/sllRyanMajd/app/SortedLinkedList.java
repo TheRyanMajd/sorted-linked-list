@@ -319,6 +319,7 @@ public class SortedLinkedList {
     }
 
     private String likeInput(int[] list) {
+        Arrays.sort(list);
         String ans = ("");
         for (int i = 0; i < list.length; i++) {
             ans += (list[i] + " ");
@@ -386,6 +387,7 @@ public class SortedLinkedList {
  *
  * @param secondList An integer array to find the intersection with the current list.
  */
+
     public void intersection(int[] secondList) {
         System.out.println("list 1: " + this.toString());
         System.out.println("list 2: " + likeInput(secondList));
