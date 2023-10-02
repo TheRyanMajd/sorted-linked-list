@@ -121,7 +121,7 @@ public class LinkedListDriver {
                     break;
             } // switch statement
         } // while loop
-        scan.close();
+
     } // main
 
     /**
