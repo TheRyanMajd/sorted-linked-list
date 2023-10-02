@@ -11,7 +11,6 @@ public class LinkedListDriver {
         File input = new File(args[0]);
         Scanner scan = new Scanner(input);
         int[] list1 = inputParser(scan.nextLine());
-        scan.nextLine();
         boolean quit = false;
         boolean badPrevAns = false;
         SortedLinkedList LinkedList1 = new SortedLinkedList(list1);
@@ -48,7 +47,7 @@ public class LinkedListDriver {
                 case "q":
                     quit = true;
                     System.out.println("Exiting the program...");
-
+                    scan.close();
                     break;
                 case "p":
                     badPrevAns = false;
@@ -122,7 +121,6 @@ public class LinkedListDriver {
                     break;
             } // switch statement
         } // while loop
-
     } // main
 
     /**
@@ -141,7 +139,6 @@ public class LinkedListDriver {
         for (int i = 0; i < listLength; i++) {
             list[i] = scan.nextInt();
         }
-
         return list;
     }
 
@@ -181,7 +178,6 @@ public class LinkedListDriver {
                 uniqueIndex++;
             }
         }
-
         return uniqueIntArray;
     } // input Parser
 
