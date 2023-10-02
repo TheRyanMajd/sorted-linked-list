@@ -393,6 +393,8 @@ public class SortedLinkedList {
         Arrays.sort(secondList);
         // Create a new ItemType[] array to store the intersection list.
         int indexCounter = 0;
+        ItemType[] secondItemList = new ItemType[secondList.length];
+
         // Iterate over the two arrays and add the matching elements to the intersection list.
         for (int i = 0; i < this.size; i++) {
             int currentValue = itemList[i].getValue();
