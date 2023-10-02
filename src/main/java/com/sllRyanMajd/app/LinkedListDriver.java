@@ -47,7 +47,7 @@ public class LinkedListDriver {
                 case "q":
                     quit = true;
                     System.out.println("Exiting the program...");
-                    scan.close();
+
                     break;
                 case "p":
                     badPrevAns = false;
@@ -140,7 +140,7 @@ public class LinkedListDriver {
         for (int i = 0; i < listLength; i++) {
             list[i] = scan.nextInt();
         }
-        scan.close();
+
         return list;
     }
 
@@ -180,7 +180,7 @@ public class LinkedListDriver {
                 uniqueIndex++;
             }
         }
-        scan.close();
+
         return uniqueIntArray;
     } // input Parser
 
