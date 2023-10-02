@@ -1,7 +1,6 @@
 package com.sllRyanMajd.app;
 
 import java.util.Arrays;
-import java.lang.Exception.*;
 
 public class SortedLinkedList {
     private NodeType head;
@@ -9,8 +8,8 @@ public class SortedLinkedList {
     private int size = 0;
     private ItemType[] itemList;
     private NodeType[] nodeList;
-    private boolean firstIteration = true;
     public boolean isEmpty = true;
+    private boolean firstIteration = true;
 
     public SortedLinkedList(int[] array) {
         this.size = array.length;
@@ -20,16 +19,18 @@ public class SortedLinkedList {
             itemList[i] = new ItemType(array[i]);
             nodeList[i] = new NodeType(itemList[i]);
         } // For
-        //initializes next method to NodeTypes
+          // initializes next method to NodeTypes
         for (int j = 0; j < this.size; j++) {
             if (!(j == this.size - 1)) {
                 nodeList[j].addNext(nodeList[j + 1]);
             }
-            this.head = nodeList[0];
-            this.currentPos = this.head;
-        } // for loop for this.next functio
+            // do not need to add next for last node in list
+        } // for loop for this.next function
         this.isEmpty = false;
+        this.head = nodeList[0];
+        this.currentPos = this.head;
     } // sll const using pre-made array
+
     public SortedLinkedList(ItemType[] array) {
         this.size = array.length;
         itemList = new ItemType[this.size];
@@ -97,7 +98,7 @@ public class SortedLinkedList {
         }
 
         this.size++;
-// Update the itemList and nodeList arrays
+        // Update the itemList and nodeList arrays
         ItemType[] newItemList = new ItemType[this.size];
         NodeType[] newNodeList = new NodeType[this.size];
         current = this.head;
@@ -153,7 +154,7 @@ public class SortedLinkedList {
         }
 
         this.size++;
-// Update the itemList and nodeList arrays
+        // Update the itemList and nodeList arrays
         ItemType[] newItemList = new ItemType[this.size];
         NodeType[] newNodeList = new NodeType[this.size];
         current = this.head;
@@ -167,8 +168,6 @@ public class SortedLinkedList {
         this.itemList = newItemList;
         this.nodeList = newNodeList;
     } // insertitem silent
-
-
 
     public void deleteItem(ItemType item, boolean isSilent) {
         int itemIndex = this.searchItem(item);
@@ -233,6 +232,7 @@ public class SortedLinkedList {
             this.size--;
             if (this.size == 0) {
                 this.isEmpty = true;
+                resetIterator();
             }
 
             // Update the itemList and nodeList arrays
@@ -250,9 +250,9 @@ public class SortedLinkedList {
         System.out.print("New list: " + this.toString());
     } // del items
 
-
     /**
      * Searches number in list.
+     * 
      * @param item refers to the ItemType being searched.
      * @return index of item. -1 meaning not in list, -2 meaning empty list
      */
@@ -268,26 +268,59 @@ public class SortedLinkedList {
             }
         } // for
         return -1;
-    }
-    public ItemType getNextItem() {
+    } // search next item
+
+    // public ItemType getNextItem() {
+
+    // if (this.head == null) {
+    // System.out.println("List is empty");
+    // return null;
+    // } else {
+    // if (this.currentPos == this.head) {
+    // this.currentPos = this.currentPos.getNext();
+    // return this.head.info;
+    // }
+    // this.currentPos = currentPos.getNext();
+    // return this.currentPos.info;
+
+    // }
+
+    // } // new get item
+
+    public ItemType getNextItem() throws NullPointerException {
         if (firstIteration) {
             firstIteration = false;
-            return head.info;
-        } else if (currentPos != null && currentPos.next != null) {
-            currentPos = currentPos.next;
-            return currentPos.info;
+            if (this.head == null || this.size == 0) {
+                System.out.println("List is empty");
+                return new ItemType(-111888333);
+                // HOW CAN I MAKE IT BREAK HERE?
+            } else {
+                this.currentPos = this.head.getNext();
+                return this.head.info;
+            }
+        } else if (currentPos != null) {
+            ItemType currentItem = this.currentPos.info;
+            this.currentPos = currentPos.next;
+            return currentItem;
+            // this.currentPos =
+            // return currentItem;
         } else {
-            // Handle the case where you reach the end of the list
-            currentPos = this.head;
-            return head.info; // Return the first item
+            if (this.size != 0) {
+                // Handle the case where you reach the end of the list
+                this.currentPos = this.head;
+                System.out.println("The end of the list has been reached");
+                return this.head.info; // Return the first item again
+            } else {
+                return new ItemType(-111888333);
+            }
         }
-    } // get Next Item
+    }
 
     public void resetIterator() {
         if (isEmpty) {
             currentPos = null;
+            this.head = null;
         } else {
-            this.firstIteration = true;
             currentPos = this.head;
         }
     } // reset Iterator
@@ -327,11 +360,10 @@ public class SortedLinkedList {
         return ans;
     }
 
-
     public void mergeList(int[] secondList) {
         System.out.println("list 1: " + this.toString());
         System.out.println("list 2: " + likeInput(secondList));
-// Convert the secondList array to ItemType[]
+        // Convert the secondList array to ItemType[]
         Arrays.sort(secondList);
         ItemType[] secondItemList = new ItemType[secondList.length];
         for (int i = 0; i < secondList.length; i++) {
@@ -351,8 +383,6 @@ public class SortedLinkedList {
         this.isEmpty = mergedList.isEmpty;
         System.out.print("Merged list: " + this.toString());
     } // merge list
-
-
 
     /** Sorts list. */
     private void sortList() {
@@ -380,13 +410,17 @@ public class SortedLinkedList {
             current = newNode;
         }
     } // sortlIst
-/**
- * Computes the intersection of the current SortedLinkedList with a given integer array.
- *
- * This method calculates the intersection of the current SortedLinkedList and the provided int[].
- *
- * @param secondList An integer array to find the intersection with the current list.
- */
+
+    /**
+     * Computes the intersection of the current SortedLinkedList with a given
+     * integer array.
+     *
+     * This method calculates the intersection of the current SortedLinkedList and
+     * the provided int[].
+     *
+     * @param secondList An integer array to find the intersection with the current
+     *                   list.
+     */
 
     public void intersection(int[] secondList) {
         System.out.println("list 1: " + this.toString());
@@ -397,7 +431,8 @@ public class SortedLinkedList {
         int indexCounter = 0;
         ItemType[] secondItemList = new ItemType[secondList.length];
 
-        // Iterate over the two arrays and add the matching elements to the intersection list.
+        // Iterate over the two arrays and add the matching elements to the intersection
+        // list.
         for (int i = 0; i < this.size; i++) {
             int currentValue = itemList[i].getValue();
             // Use binary search to check if the current item exists in the secondList.
