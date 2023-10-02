@@ -11,6 +11,7 @@ public class LinkedListDriver {
         File input = new File(args[0]);
         Scanner scan = new Scanner(input);
         int[] list1 = inputParser(scan.nextLine());
+        scan.nextLine();
         boolean quit = false;
         boolean badPrevAns = false;
         SortedLinkedList LinkedList1 = new SortedLinkedList(list1);
