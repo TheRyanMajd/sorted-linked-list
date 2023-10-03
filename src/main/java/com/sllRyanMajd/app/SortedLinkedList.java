@@ -1,6 +1,8 @@
 package com.sllRyanMajd.app;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class SortedLinkedList {
     private NodeType head;
@@ -12,6 +14,7 @@ public class SortedLinkedList {
     private boolean firstIteration = true;
 
     public SortedLinkedList(int[] array) {
+        Arrays.sort(array);
         this.size = array.length;
         itemList = new ItemType[this.size];
         nodeList = new NodeType[this.size];
@@ -363,6 +366,7 @@ public class SortedLinkedList {
     public void mergeList(int[] secondList) {
         System.out.println("list 1: " + this.toString());
         System.out.println("list 2: " + likeInput(secondList));
+        secondList = removeDuplicates(secondList);
         // Convert the secondList array to ItemType[]
         Arrays.sort(secondList);
         ItemType[] secondItemList = new ItemType[secondList.length];
@@ -383,6 +387,20 @@ public class SortedLinkedList {
         this.isEmpty = mergedList.isEmpty;
         System.out.print("Merged list: " + this.toString());
     } // merge list
+
+    // Helper method to remove duplicates from an int[] array
+    private int[] removeDuplicates(int[] arr) {
+        Set<Integer> set = new LinkedHashSet<>();
+        for (int num : arr) {
+            set.add(num);
+        }
+        int[] result = new int[set.size()];
+        int index = 0;
+        for (int num : set) {
+            result[index++] = num;
+        }
+        return result;
+    }
 
     /** Sorts list. */
     private void sortList() {
